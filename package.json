@@ -1,0 +1,34 @@
+{
+    "name": "pocketbase-auto-generate-types",
+    "description": "Auto Generate PocketBase DB Types.",
+    "version": "0.0.1",
+    "license": "MIT",
+    "main": "./dist/index.js",
+    "repository": "github:babakfp/pocketbase-auto-generate-types",
+    "homepage": "https://babakfp.ir/docs/pocketbase-auto-generate-types",
+    "scripts": {
+        "dev": "tsc -w",
+        "build": "tsc",
+        "prepublishOnly": "tsc",
+        "format": "prettier -w ."
+    },
+    "devDependencies": {
+        "prettier": "3.2.5",
+        "typescript": "5.4.5"
+    },
+    "files": [
+        "/dist/"
+    ],
+    "exports": {
+        ".": "./dist/index.js"
+    },
+    "keywords": [
+        "pocketbase",
+        "auto",
+        "generate",
+        "types",
+        "db",
+        "database"
+    ],
+    "type": "module"
+}
