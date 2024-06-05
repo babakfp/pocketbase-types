@@ -32,9 +32,11 @@ const createCollectionRecordTypes = () => {
         }
 
         if (field.type === "select") {
-            return field.options.values
+            const options = field.options.values
                 .map((value: string) => JSON.stringify(value))
                 .join(" | ") as string
+
+            return field.options.maxSelect > 1 ? `(${options})[]` : options
         }
 
         return "unknown"
