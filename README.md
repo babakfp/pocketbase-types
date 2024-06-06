@@ -31,12 +31,6 @@ Place the name of the environment variable in front of the flags. You can name t
 pnpm pocketbase-auto-generate-types --env -u http://127.0.0.1:8090 -e ADMIN_EMAIL -p ADMIN_PASSWORD -o types.ts
 ```
 
-Node.js built-in `process.env` is used to read environment variables.
-
-```bash
-pnpm pocketbase-auto-generate-types --env -u http://127.0.0.1:8090 -e ADMIN_EMAIL -p ADMIN_PASSWORD -o types.ts
-```
-
 ### Function
 
 ```ts

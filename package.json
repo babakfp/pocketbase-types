@@ -1,12 +1,11 @@
 {
     "name": "pocketbase-auto-generate-types",
     "description": "Auto Generate PocketBase Types.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "main": "./dist/src/index.js",
     "bin": "./dist/cli/index.js",
     "repository": "github:babakfp/pocketbase-auto-generate-types",
-    "homepage": "https://babakfp.ir/docs/pocketbase-auto-generate-types",
     "scripts": {
         "dev": "tsc -w",
         "build": "tsc",
