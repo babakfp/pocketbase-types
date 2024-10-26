@@ -7,22 +7,23 @@
     "bin": "./dist/cli/index.js",
     "repository": "github:babakfp/pocketbase-auto-generate-types",
     "scripts": {
-        "dev": "tsc -w",
-        "build": "tsc",
-        "prepublishOnly": "tsc",
+        "dev": "rimraf dist && tsc -w",
+        "build": "rimraf dist && tsc",
+        "prepublishOnly": "rimraf dist && tsc",
         "format": "prettier -w ."
     },
     "dependencies": {
         "commander": "12.1.0",
         "dotenv": "16.4.5",
         "pascalcase": "2.0.0",
-        "pocketbase": "0.21.2"
+        "pocketbase": "0.21.5"
     },
     "devDependencies": {
-        "@types/node": "20.12.13",
+        "@types/node": "22.8.1",
         "@types/pascalcase": "1.0.3",
-        "prettier": "3.2.5",
-        "typescript": "5.4.5"
+        "prettier": "3.3.3",
+        "rimraf": "6.0.1",
+        "typescript": "5.6.3"
     },
     "files": [
         "/dist/"
