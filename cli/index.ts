@@ -36,49 +36,52 @@ if (o.env) {
     })
 }
 
-o.url = o.env
-    ? o.url
-        ? process.env[o.url]
-        : process.env["PB_URL"] ||
-          process.env["PUBLIC_PB_URL"] ||
-          process.env["POCKETBASE_URL"] ||
-          process.env["PUBLIC_POCKETBASE_URL"] ||
-          "http://127.0.0.1:8090"
-    : o.url
+o.url =
+    o.env ?
+        o.url ?
+            process.env[o.url]
+        :   process.env["PB_URL"] ||
+            process.env["PUBLIC_PB_URL"] ||
+            process.env["POCKETBASE_URL"] ||
+            process.env["PUBLIC_POCKETBASE_URL"] ||
+            "http://127.0.0.1:8090"
+    :   o.url
 
-o.email = o.env
-    ? o.email
-        ? process.env[o.email]
-        : process.env["PB_EMAIL"] || process.env["POCKETBASE_EMAIL"]
-    : o.email
+o.email =
+    o.env ?
+        o.email ?
+            process.env[o.email]
+        :   process.env["PB_EMAIL"] || process.env["POCKETBASE_EMAIL"]
+    :   o.email
 
-o.password = o.env
-    ? o.password
-        ? process.env[o.password]
-        : process.env["PB_PASSWORD"] || process.env["POCKETBASE_PASSWORD"]
-    : o.password
+o.password =
+    o.env ?
+        o.password ?
+            process.env[o.password]
+        :   process.env["PB_PASSWORD"] || process.env["POCKETBASE_PASSWORD"]
+    :   o.password
 
 if (!o.url) {
     console.log(
-        o.env
-            ? "The environment variable for PocketBase URL is missing or invalid."
-            : "Missing PocketBase URL.",
+        o.env ?
+            "The environment variable for PocketBase URL is missing or invalid."
+        :   "Missing PocketBase URL.",
     )
 }
 
 if (!o.email) {
     console.log(
-        o.env
-            ? "The environment variable for PocketBase email is missing or invalid."
-            : "Missing PocketBase email.",
+        o.env ?
+            "The environment variable for PocketBase email is missing or invalid."
+        :   "Missing PocketBase email.",
     )
 }
 
 if (!o.password) {
     console.log(
-        o.env
-            ? "The environment variable for PocketBase password is missing or invalid."
-            : "Missing PocketBase password.",
+        o.env ?
+            "The environment variable for PocketBase password is missing or invalid."
+        :   "Missing PocketBase password.",
     )
 }
 

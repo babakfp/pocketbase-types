@@ -2,4 +2,5 @@
 export default {
     semi: false,
     tabWidth: 4,
+    experimentalTernaries: true,
 }
