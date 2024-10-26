@@ -22,7 +22,7 @@ program
 
     .parse()
 
-const options = program.opts<{
+const o = program.opts<{
     url?: string
     email?: string
     password?: string
@@ -30,60 +30,56 @@ const options = program.opts<{
     env?: true | string
 }>()
 
-if (options.env) {
+if (o.env) {
     dotenv.config({
-        path: typeof options.env === "string" ? options.env : undefined,
+        path: typeof o.env === "string" ? o.env : undefined,
     })
 }
 
-options.url = options.env
-    ? process.env[String(options.url)] ||
-      process.env["PB_URL"] ||
-      process.env["PUBLIC_PB_URL"] ||
-      process.env["POCKETBASE_URL"] ||
-      process.env["PUBLIC_POCKETBASE_URL"] ||
-      "http://127.0.0.1:8090"
-    : options.url
+o.url = o.env
+    ? o.url
+        ? process.env[o.url]
+        : process.env["PB_URL"] ||
+          process.env["PUBLIC_PB_URL"] ||
+          process.env["POCKETBASE_URL"] ||
+          process.env["PUBLIC_POCKETBASE_URL"] ||
+          "http://127.0.0.1:8090"
+    : o.url
 
-options.email = options.env
-    ? process.env[String(options.email)] ||
-      process.env["PB_EMAIL"] ||
-      process.env["POCKETBASE_EMAIL"]
-    : options.email
+o.email = o.env
+    ? o.email
+        ? process.env[o.email]
+        : process.env["PB_EMAIL"] || process.env["POCKETBASE_EMAIL"]
+    : o.email
 
-options.password = options.env
-    ? process.env[String(options.password)] ||
-      process.env["PB_PASSWORD"] ||
-      process.env["POCKETBASE_PASSWORD"]
-    : options.password
+o.password = o.env
+    ? o.password
+        ? process.env[o.password]
+        : process.env["PB_PASSWORD"] || process.env["POCKETBASE_PASSWORD"]
+    : o.password
 
-if (!options.url)
+if (!o.url)
     console.log(
-        options.env
+        o.env
             ? "The environment variable for PocketBase URL is missing or invalid."
             : "Missing PocketBase URL.",
     )
-if (!options.email)
+if (!o.email)
     console.log(
-        options.env
+        o.env
             ? "The environment variable for PocketBase email is missing or invalid."
             : "Missing PocketBase email.",
     )
-if (!options.password)
+if (!o.password)
     console.log(
-        options.env
+        o.env
             ? "The environment variable for PocketBase password is missing or invalid."
             : "Missing PocketBase password.",
     )
-if (!options.output) console.log("Missing output path.")
+if (!o.output) console.log("Missing output path.")
 
-if (!options.url || !options.email || !options.password || !options.output) {
+if (!o.url || !o.email || !o.password || !o.output) {
     process.exit()
 }
 
-await writeTypesToFile(
-    options.url,
-    options.email,
-    options.password,
-    options.output,
-)
+await writeTypesToFile(o.url, o.email, o.password, o.output)
