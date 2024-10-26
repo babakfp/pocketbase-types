@@ -12,9 +12,9 @@ pnpm add -D pocketbase-auto-generate-types
 
 ### CLI
 
--   `-u`, `--url <url>` - PocketBase URL. Default: `PB_URL`, `PUBLIC_PB_URL`, `POCKETBASE_URL`, `PUBLIC_POCKETBASE_URL`, `"http://127.0.0.1:8090"`.
--   `-e`, `--email <email>` - PocketBase admin email. Default: `PB_EMAIL`, `POCKETBASE_EMAIL`.
--   `-p`, `--password <password>` - PocketBase admin password. Default: `PB_PASSWORD`, `POCKETBASE_PASSWORD`.
+-   `-u`, `--url [url]` - PocketBase URL. Default: `PB_URL`, `PUBLIC_PB_URL`, `POCKETBASE_URL`, `PUBLIC_POCKETBASE_URL`, `"http://127.0.0.1:8090"`.
+-   `-e`, `--email [email]` - PocketBase admin email. Default: `PB_EMAIL`, `POCKETBASE_EMAIL`.
+-   `-p`, `--password [password]` - PocketBase admin password. Default: `PB_PASSWORD`, `POCKETBASE_PASSWORD`.
 -   `-o`, `--output <output>` - Specify the file path to save the types. The path is relative to the current working directory.
 -   `--env` - When enabled, the PocketBase URL, email, and password will be read from environment variables.
 -   `-h`, `--help` - Display help for command.
