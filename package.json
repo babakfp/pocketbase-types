@@ -1,7 +1,7 @@
 {
     "name": "pocketbase-auto-generate-types",
     "description": "Auto Generate PocketBase Types.",
-    "version": "1.0.1",
+    "version": "1.2.0",
     "license": "MIT",
     "main": "./dist/src/index.js",
     "bin": "./dist/cli/index.js",
