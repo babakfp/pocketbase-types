@@ -36,10 +36,25 @@ if (options.env) {
     })
 }
 
-options.url = options.env ? process.env[String(options.url)] : options.url
-options.email = options.env ? process.env[String(options.email)] : options.email
+options.url = options.env
+    ? process.env[String(options.url)] ||
+      process.env["PB_URL"] ||
+      process.env["PUBLIC_PB_URL"] ||
+      process.env["POCKETBASE_URL"] ||
+      process.env["PUBLIC_POCKETBASE_URL"] ||
+      "http://127.0.0.1:8090"
+    : options.url
+
+options.email = options.env
+    ? process.env[String(options.email)] ||
+      process.env["PB_EMAIL"] ||
+      process.env["POCKETBASE_EMAIL"]
+    : options.email
+
 options.password = options.env
-    ? process.env[String(options.password)]
+    ? process.env[String(options.password)] ||
+      process.env["PB_PASSWORD"] ||
+      process.env["POCKETBASE_PASSWORD"]
     : options.password
 
 if (!options.url)
