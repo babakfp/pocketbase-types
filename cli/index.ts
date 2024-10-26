@@ -58,25 +58,33 @@ o.password = o.env
         : process.env["PB_PASSWORD"] || process.env["POCKETBASE_PASSWORD"]
     : o.password
 
-if (!o.url)
+if (!o.url) {
     console.log(
         o.env
             ? "The environment variable for PocketBase URL is missing or invalid."
             : "Missing PocketBase URL.",
     )
-if (!o.email)
+}
+
+if (!o.email) {
     console.log(
         o.env
             ? "The environment variable for PocketBase email is missing or invalid."
             : "Missing PocketBase email.",
     )
-if (!o.password)
+}
+
+if (!o.password) {
     console.log(
         o.env
             ? "The environment variable for PocketBase password is missing or invalid."
             : "Missing PocketBase password.",
     )
-if (!o.output) console.log("Missing output path.")
+}
+
+if (!o.output) {
+    console.log("Missing output path.")
+}
 
 if (!o.url || !o.email || !o.password || !o.output) {
     process.exit()
