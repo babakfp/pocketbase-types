@@ -9,10 +9,7 @@ program
     .option("-u, --url [url]", "PocketBase URL.")
     .option("-e, --email [email]", "PocketBase admin email.")
     .option("-p, --password [password]", "PocketBase admin password.")
-    .option(
-        "-o, --output <output>",
-        "Specify the file path (relative to the current working directory) to save the types.",
-    )
+    .option("-o, --output <output>", "Specify the path to save the types.")
     .option("--env [path]", "Specify the location of the environment file.")
 
     .helpOption("-h, --help", "Display help for command.")
