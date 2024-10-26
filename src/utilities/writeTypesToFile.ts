@@ -1,7 +1,7 @@
-import { join } from "node:path"
 import { writeFile } from "node:fs/promises"
-import { getCollections } from "./getCollections.js"
+import { join } from "node:path"
 import { createTypes } from "./createTypes.js"
+import { getCollections } from "./getCollections.js"
 
 /**
  * Fetches all collections from PocketBase, converts them to TypeScript types, and saves them to a file.

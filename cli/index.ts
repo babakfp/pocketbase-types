@@ -1,8 +1,8 @@
-import dotenv from "dotenv"
 import { program } from "commander"
+import dotenv from "dotenv"
 import * as v from "valibot"
-import { writeTypesToFile } from "../src/utilities/writeTypesToFile.js"
 import { cliOptionsSchema } from "../src/utilities/cliOptionsSchema.js"
+import { writeTypesToFile } from "../src/utilities/writeTypesToFile.js"
 
 program
     .name("pocketbase-auto-generate-types")
