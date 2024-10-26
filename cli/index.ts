@@ -22,7 +22,7 @@ program
 
     .parse()
 
-const o = program.opts<{
+let { url, email, password, output, env } = program.opts<{
     url?: string
     email?: string
     password?: string
@@ -30,67 +30,64 @@ const o = program.opts<{
     env?: true | string
 }>()
 
-if (o.env) {
+if (env) {
     dotenv.config({
-        path: typeof o.env === "string" ? o.env : undefined,
+        path: typeof env === "string" ? env : undefined,
     })
 }
 
-o.url =
-    o.env ?
-        o.url ?
-            process.env[o.url]
+url =
+    env ?
+        url ? process.env[url]
         :   process.env["PB_URL"] ||
             process.env["PUBLIC_PB_URL"] ||
             process.env["POCKETBASE_URL"] ||
             process.env["PUBLIC_POCKETBASE_URL"] ||
             "http://127.0.0.1:8090"
-    :   o.url
+    :   url
 
-o.email =
-    o.env ?
-        o.email ?
-            process.env[o.email]
+email =
+    env ?
+        email ? process.env[email]
         :   process.env["PB_EMAIL"] || process.env["POCKETBASE_EMAIL"]
-    :   o.email
+    :   email
 
-o.password =
-    o.env ?
-        o.password ?
-            process.env[o.password]
+password =
+    env ?
+        password ? process.env[password]
         :   process.env["PB_PASSWORD"] || process.env["POCKETBASE_PASSWORD"]
-    :   o.password
+    :   password
 
-if (!o.url) {
+if (!url) {
     console.log(
-        o.env ?
+        env ?
             "The environment variable for PocketBase URL is missing or invalid."
         :   "Missing PocketBase URL.",
     )
 }
 
-if (!o.email) {
+if (!email) {
     console.log(
-        o.env ?
+        env ?
             "The environment variable for PocketBase email is missing or invalid."
         :   "Missing PocketBase email.",
     )
 }
 
-if (!o.password) {
+if (!password) {
     console.log(
-        o.env ?
+        env ?
             "The environment variable for PocketBase password is missing or invalid."
         :   "Missing PocketBase password.",
     )
 }
 
-if (!o.output) {
+if (!output) {
     console.log("Missing output path.")
 }
 
-if (!o.url || !o.email || !o.password || !o.output) {
+if (!url || !email || !password || !output) {
     process.exit()
 }
 
-await writeTypesToFile(o.url, o.email, o.password, o.output)
+await writeTypesToFile(url, email, password, output)
