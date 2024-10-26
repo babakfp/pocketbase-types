@@ -1,6 +1,8 @@
 import dotenv from "dotenv"
 import { program } from "commander"
+import * as v from "valibot"
 import { writeTypesToFile } from "../src/utilities/writeTypesToFile.js"
+import { cliOptionsSchema } from "../src/utilities/cliOptionsSchema.js"
 
 program
     .name("pocketbase-auto-generate-types")
@@ -16,13 +18,10 @@ program
 
     .parse()
 
-let { url, email, password, output, env } = program.opts<{
-    url?: string
-    email?: string
-    password?: string
-    output?: string
-    env?: string
-}>()
+let { url, email, password, output, env } = v.parse(
+    cliOptionsSchema,
+    program.opts(),
+)
 
 dotenv.config({ path: env })
 

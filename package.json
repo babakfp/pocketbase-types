@@ -16,7 +16,8 @@
         "commander": "12.1.0",
         "dotenv": "16.4.5",
         "pascalcase": "2.0.0",
-        "pocketbase": "0.21.5"
+        "pocketbase": "0.21.5",
+        "valibot": "0.42.1"
     },
     "devDependencies": {
         "@types/node": "22.8.1",
