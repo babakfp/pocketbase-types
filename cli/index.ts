@@ -49,19 +49,19 @@ password =
     :   process.env["PB_PASSWORD"] || process.env["POCKETBASE_PASSWORD"]
 
 if (!url) {
-    console.log("Missing PocketBase URL.")
+    console.log("pocketbase-auto-generate-types: Missing URL.")
 }
 
 if (!email) {
-    console.log("Missing PocketBase email.")
+    console.log("pocketbase-auto-generate-types: Missing email.")
 }
 
 if (!password) {
-    console.log("Missing PocketBase password.")
+    console.log("pocketbase-auto-generate-types: Missing password.")
 }
 
 if (!output) {
-    console.log("Missing output path.")
+    console.log("pocketbase-auto-generate-types: Missing output path.")
 }
 
 if (!url || !email || !password || !output) {
