@@ -11,12 +11,9 @@ program
     .option("-p, --password [password]", "PocketBase admin password.")
     .option(
         "-o, --output <output>",
-        "Specify the file path to save the types. The path is relative to the current working directory.",
+        "Specify the file path (relative to the current working directory) to save the types.",
     )
-    .option(
-        "--env [path]",
-        "Enable this option to read the PocketBase URL, email, and password from environment variables. The optional 'path' parameter allows you to specify the location of the environment file.",
-    )
+    .option("--env [path]", "Specify the location of the environment file.")
 
     .helpOption("-h, --help", "Display help for command.")
 
@@ -27,59 +24,40 @@ let { url, email, password, output, env } = program.opts<{
     email?: string
     password?: string
     output?: string
-    env?: true | string
+    env?: string
 }>()
 
-if (env) {
-    dotenv.config({
-        path: typeof env === "string" ? env : undefined,
-    })
-}
+dotenv.config({ path: env })
 
 url =
-    env ?
-        url ? process.env[url]
-        :   process.env["PB_URL"] ||
-            process.env["PUBLIC_PB_URL"] ||
-            process.env["POCKETBASE_URL"] ||
-            process.env["PUBLIC_POCKETBASE_URL"] ||
-            "http://127.0.0.1:8090"
-    :   url
+    url ?
+        process.env[url] || url
+    :   process.env["PB_URL"] ||
+        process.env["PUBLIC_PB_URL"] ||
+        process.env["POCKETBASE_URL"] ||
+        process.env["PUBLIC_POCKETBASE_URL"] ||
+        "http://127.0.0.1:8090"
 
 email =
-    env ?
-        email ? process.env[email]
-        :   process.env["PB_EMAIL"] || process.env["POCKETBASE_EMAIL"]
-    :   email
+    email ?
+        process.env[email] || email
+    :   process.env["PB_EMAIL"] || process.env["POCKETBASE_EMAIL"]
 
 password =
-    env ?
-        password ? process.env[password]
-        :   process.env["PB_PASSWORD"] || process.env["POCKETBASE_PASSWORD"]
-    :   password
+    password ?
+        process.env[password] || password
+    :   process.env["PB_PASSWORD"] || process.env["POCKETBASE_PASSWORD"]
 
 if (!url) {
-    console.log(
-        env ?
-            "The environment variable for PocketBase URL is missing or invalid."
-        :   "Missing PocketBase URL.",
-    )
+    console.log("Missing PocketBase URL.")
 }
 
 if (!email) {
-    console.log(
-        env ?
-            "The environment variable for PocketBase email is missing or invalid."
-        :   "Missing PocketBase email.",
-    )
+    console.log("Missing PocketBase email.")
 }
 
 if (!password) {
-    console.log(
-        env ?
-            "The environment variable for PocketBase password is missing or invalid."
-        :   "Missing PocketBase password.",
-    )
+    console.log("Missing PocketBase password.")
 }
 
 if (!output) {
