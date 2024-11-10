@@ -1,11 +1,11 @@
-# PocketBase Auto Generate Types
+# PocketBase Types
 
-Auto Generate PocketBase Types.
+A CLI tool to generate TypeScript types for PocketBase.
 
 ## Install
 
 ```bash
-pnpm add -D pocketbase-auto-generate-types
+pnpm add -D pocketbase-types
 ```
 
 ## How to use
@@ -20,7 +20,7 @@ pnpm add -D pocketbase-auto-generate-types
 -   `-h`, `--help` - Display help for command.
 
 ```bash
-pnpm pocketbase-auto-generate-types -u http://127.0.0.1:8090 -e admin_email -p admin_password -o types.ts
+pnpm pocketbase-types -u http://127.0.0.1:8090 -e admin_email -p admin_password -o types.ts
 ```
 
 #### Environment Variables
@@ -28,13 +28,13 @@ pnpm pocketbase-auto-generate-types -u http://127.0.0.1:8090 -e admin_email -p a
 Place the name of the environment variable in front of the flags. You can name the environment variable whatever you want.
 
 ```bash
-pnpm pocketbase-auto-generate-types --env .env.local -u http://127.0.0.1:8090 -e ADMIN_EMAIL -p ADMIN_PASSWORD -o types.ts
+pnpm pocketbase-types --env .env.local -u http://127.0.0.1:8090 -e ADMIN_EMAIL -p ADMIN_PASSWORD -o types.ts
 ```
 
 ### Function
 
 ```ts
-import { writeTypesToFile } from "pocketbase-auto-generate-types"
+import { writeTypesToFile } from "pocketbase-types"
 
 await writeTypesToFile(
     "http://127.0.0.1:8090",
@@ -57,27 +57,21 @@ onCollectionAfterCreateRequest(() => {
     const { sendTypesUpdateRequest } = require(
         `${__hooks}/sendTypesUpdateRequest.cjs`,
     )
-    sendTypesUpdateRequest(
-        "http://localhost:5173/pocketbase-auto-generate-types",
-    )
+    sendTypesUpdateRequest("http://localhost:5173/pocketbase-types")
 })
 
 onCollectionAfterUpdateRequest(() => {
     const { sendTypesUpdateRequest } = require(
         `${__hooks}/sendTypesUpdateRequest.cjs`,
     )
-    sendTypesUpdateRequest(
-        "http://localhost:5173/pocketbase-auto-generate-types",
-    )
+    sendTypesUpdateRequest("http://localhost:5173/pocketbase-types")
 })
 
 onCollectionAfterDeleteRequest(() => {
     const { sendTypesUpdateRequest } = require(
         `${__hooks}/sendTypesUpdateRequest.cjs`,
     )
-    sendTypesUpdateRequest(
-        "http://localhost:5173/pocketbase-auto-generate-types",
-    )
+    sendTypesUpdateRequest("http://localhost:5173/pocketbase-types")
 })
 ```
 
@@ -108,11 +102,11 @@ module.exports = {
 
 This is going to send a HTTP request to your app, letting you know that types neeed to be updated.
 
-In your app, you need to have an endpoint that will receive the request and update the types using the `pocketbase-auto-generate-types` package.
+In your app, you need to have an endpoint that will receive the request and update the types using the `pocketbase-types` package.
 
 Example how it's done in SvelteKit:
 
-`src/routes/pocketbase-auto-generate-types/+server.ts`:
+`src/routes/pocketbase-types/+server.ts`:
 
 ```ts
 import {
@@ -120,7 +114,7 @@ import {
     POCKETBASE_ADMIN_PASSWORD,
 } from "$env/static/private"
 import { PUBLIC_POCKETBASE_URL } from "$env/static/public"
-import { writeTypesToFile } from "pocketbase-auto-generate-types"
+import { writeTypesToFile } from "pocketbase-types"
 
 export const POST = async () => {
     const OUTPUT_PATH = "/src/lib/pocketbase-auto-generated-types.ts"
@@ -136,12 +130,12 @@ export const POST = async () => {
 }
 ```
 
-`src/routes/pocketbase-auto-generate-types/+page.server.ts`
+`src/routes/pocketbase-types/+page.server.ts`
 
 ```ts
 export const actions = {
     default: async ({ fetch }) => {
-        await fetch("/pocketbase-auto-generate-types")
+        await fetch("/pocketbase-types")
     },
 }
 ```
@@ -170,7 +164,7 @@ export const actions = {
 <form
     use:enhance
     method="post"
-    action="/pocketbase-auto-generate-types"
+    action="/pocketbase-types"
     bind:this={formElement}
 />
 ```

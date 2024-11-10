@@ -1,11 +1,11 @@
 {
-    "name": "pocketbase-auto-generate-types",
-    "description": "Auto Generate PocketBase Types.",
+    "name": "pocketbase-types",
+    "description": "A CLI tool to generate TypeScript types for PocketBase.",
     "version": "1.2.0",
     "license": "MIT",
     "main": "./dist/src/index.js",
     "bin": "./dist/cli/index.js",
-    "repository": "github:babakfp/pocketbase-auto-generate-types",
+    "repository": "github:babakfp/pocketbase-types",
     "scripts": {
         "dev": "rimraf dist && tsc -w",
         "build": "rimraf dist && tsc",

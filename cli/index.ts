@@ -5,8 +5,8 @@ import { cliOptionsSchema } from "../src/utilities/cliOptionsSchema.js"
 import { writeTypesToFile } from "../src/utilities/writeTypesToFile.js"
 
 program
-    .name("pocketbase-auto-generate-types")
-    .description("Auto Generate PocketBase Types.")
+    .name("pocketbase-types")
+    .description("A CLI tool to generate TypeScript types for PocketBase.")
 
     .option("-u, --url [url]", "PocketBase URL.")
     .option("-e, --email [email]", "PocketBase admin email.")
@@ -45,19 +45,19 @@ password =
     :   process.env["PB_PASSWORD"] || process.env["POCKETBASE_PASSWORD"]
 
 if (!url) {
-    console.log("pocketbase-auto-generate-types: Missing URL.")
+    console.log("pocketbase-types: Missing URL.")
 }
 
 if (!email) {
-    console.log("pocketbase-auto-generate-types: Missing email.")
+    console.log("pocketbase-types: Missing email.")
 }
 
 if (!password) {
-    console.log("pocketbase-auto-generate-types: Missing password.")
+    console.log("pocketbase-types: Missing password.")
 }
 
 if (!output) {
-    console.log("pocketbase-auto-generate-types: Missing output path.")
+    console.log("pocketbase-types: Missing output path.")
 }
 
 if (!url || !email || !password || !output) {
