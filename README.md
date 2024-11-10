@@ -10,25 +10,23 @@ pnpm add -D pocketbase-types
 
 ## How to use
 
-### CLI
+```bash
+pnpm pocketbase-types -o pocketbase-types.ts
+```
 
--   `-u`, `--url [url]` - PocketBase URL. Default: `PB_URL`, `PUBLIC_PB_URL`, `POCKETBASE_URL`, `PUBLIC_POCKETBASE_URL`, `"http://127.0.0.1:8090"`.
--   `-e`, `--email [email]` - PocketBase admin email. Default: `PB_EMAIL`, `POCKETBASE_EMAIL`.
--   `-p`, `--password [password]` - PocketBase admin password. Default: `PB_PASSWORD`, `POCKETBASE_PASSWORD`.
+-   `-u`, `--url [url]` - PocketBase URL. Default: `PB_URL || PUBLIC_PB_URL || POCKETBASE_URL || PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090"`.
+-   `-e`, `--email [email]` - PocketBase admin email. Default: `PB_EMAIL || POCKETBASE_EMAIL`.
+-   `-p`, `--password [password]` - PocketBase admin password. Default: `PB_PASSWORD || POCKETBASE_PASSWORD`.
 -   `-o`, `--output <output>` - Specify the path to save the types.
 -   `--env` - Specify the location of the environment file.
 -   `-h`, `--help` - Display help for command.
 
-```bash
-pnpm pocketbase-types -u http://127.0.0.1:8090 -e admin_email -p admin_password -o types.ts
-```
+### Environment Variables
 
-#### Environment Variables
-
-Place the name of the environment variable in front of the flags. You can name the environment variable whatever you want.
+Environment variables by default are loaded from the `.env` file in the root of your project. You can also specify the location of the environment file using the `--env` flag.
 
 ```bash
-pnpm pocketbase-types --env .env.local -u http://127.0.0.1:8090 -e ADMIN_EMAIL -p ADMIN_PASSWORD -o types.ts
+pnpm pocketbase-types -o pocketbase-types.ts --env .env.local
 ```
 
 ### Function
@@ -40,7 +38,7 @@ await writeTypesToFile(
     "http://127.0.0.1:8090",
     "ADMIN EMAIL",
     "ADMIN PASSWORD",
-    "types.ts",
+    "pocketbase-types.ts",
 )
 ```
 
@@ -117,7 +115,7 @@ import { PUBLIC_POCKETBASE_URL } from "$env/static/public"
 import { writeTypesToFile } from "pocketbase-types"
 
 export const POST = async () => {
-    const OUTPUT_PATH = "/src/lib/pocketbase-auto-generated-types.ts"
+    const OUTPUT_PATH = "/src/lib/pocketbase-types.ts"
 
     await writeTypesToFile(
         PUBLIC_POCKETBASE_URL,
