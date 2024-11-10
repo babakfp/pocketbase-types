@@ -1,62 +1,26 @@
-import type { CollectionModel, SchemaField } from "pocketbase"
+import type { CollectionModel } from "pocketbase"
 import { toPascalCase } from "../helpers/toPascalCase.js"
+import { getCollectionFieldTsType } from "./getCollectionFieldTsType.js"
+import { getCollectionSelectFieldConstantName } from "./getCollectionSelectFieldConstantName.js"
 
 const createCollectionRecord = () => {
     const types: string[] = []
 
-    const fieldTypeToTs = (field: SchemaField, collectionName: string) => {
-        if (
-            field.type === "date" ||
-            field.type === "text" ||
-            field.type === "email" ||
-            field.type === "url" ||
-            field.type === "editor"
-        ) {
-            return "string"
-        }
-
-        if (field.type === "number") {
-            return "number"
-        }
-
-        if (field.type === "bool") {
-            return "boolean"
-        }
-
-        if (field.type === "json") {
-            return ["unknown", "null"].join(" | ")
-        }
-
-        if (field.type === "file" || field.type === "relation") {
-            return field.options.maxSelect > 1 ? "string[]" : "string"
-        }
-
-        if (field.type === "select") {
-            const options = `keyof typeof ${collectionName.toUpperCase()}_RECORD_${field.name.toUpperCase()}`
-
-            return field.options.maxSelect > 1 ? `(${options})[]` : options
-        }
-
-        return "unknown"
-    }
-
     const add = (c: CollectionModel) => {
         const props: string[] = []
-        const selectConstantProperties: ((recordName: string) => string)[] = []
-
-        const collectionName = toPascalCase(c.name)
+        const selectConstantProperties: string[] = []
 
         c.schema.forEach((field) => {
             const name = field.name
             const required = field.required ? "" : "?"
-            const type = fieldTypeToTs(field, collectionName)
+            const type = getCollectionFieldTsType(c, field)
 
             props.push(`    ${name}${required}: ${type}`)
 
             if (field.type === "select") {
-                selectConstantProperties.push((recordName) =>
+                selectConstantProperties.push(
                     [
-                        `export const ${recordName.toUpperCase()}_RECORD_${name.toUpperCase()} = {`,
+                        `export const ${getCollectionSelectFieldConstantName(c.name, name)} = {`,
                         field.options.values
                             .map(
                                 (value: string) =>
@@ -69,12 +33,10 @@ const createCollectionRecord = () => {
             }
         })
 
+        const collectionName = toPascalCase(c.name)
+
         if (selectConstantProperties.length) {
-            types.push(
-                selectConstantProperties
-                    .map((fn) => fn(collectionName))
-                    .join("\n\n"),
-            )
+            types.push(selectConstantProperties.join("\n\n"))
         }
 
         types.push(
