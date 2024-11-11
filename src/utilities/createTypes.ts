@@ -20,7 +20,7 @@ const createCollectionRecord = () => {
             if (field.type === "select") {
                 constants.push(
                     [
-                        `export const ${getRecordFieldConstantName(c.name, name)} = {`,
+                        `export const ${getRecordFieldConstantName(c.name, name)}_OPTIONS = {`,
                         field.options.values
                             .map(
                                 (value: string) =>

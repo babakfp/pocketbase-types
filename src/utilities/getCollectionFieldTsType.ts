@@ -46,7 +46,7 @@ export const getCollectionFieldTsType = (
     }
 
     if (field.type === "select") {
-        const type = `keyof typeof ${getRecordFieldConstantName(collection.name, field.name)}`
+        const type = `keyof typeof ${getRecordFieldConstantName(collection.name, field.name)}_OPTIONS`
         return field.options.maxSelect === 1 ? type : `(${type})[]`
     }
 
