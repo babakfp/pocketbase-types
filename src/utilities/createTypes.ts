@@ -1,5 +1,5 @@
 import type { CollectionModel } from "pocketbase"
-import { toPascalCase } from "../helpers/toPascalCase.js"
+import { toPascalCase } from "../helpers/toCase.js"
 import { getCollectionFieldTsType } from "./getCollectionFieldTsType.js"
 import { getCollectionSelectFieldConstantName } from "./getCollectionSelectFieldConstantName.js"
 import { getRecordFieldConstantName } from "./getRecordFieldConstantName.js"
