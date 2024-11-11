@@ -1,7 +1,7 @@
 import type { CollectionModel } from "pocketbase"
 import { toPascalCase } from "../helpers/toPascalCase.js"
 import { getCollectionFieldTsType } from "./getCollectionFieldTsType.js"
-import { getCollectionSelectFieldConstantName } from "./getCollectionSelectFieldConstantName.js"
+import { getRecordFieldConstantName } from "./getRecordFieldConstantName.js"
 
 const createCollectionRecord = () => {
     const types: string[] = []
@@ -20,7 +20,7 @@ const createCollectionRecord = () => {
             if (field.type === "select") {
                 constants.push(
                     [
-                        `export const ${getCollectionSelectFieldConstantName(c.name, name)} = {`,
+                        `export const ${getRecordFieldConstantName(c.name, name)} = {`,
                         field.options.values
                             .map(
                                 (value: string) =>
@@ -35,7 +35,7 @@ const createCollectionRecord = () => {
             if (field.type === "file") {
                 constants.push(
                     [
-                        `export const ${c.name.toUpperCase()}_RECORD_${name.toUpperCase()}_MIME_TYPES = {`,
+                        `export const ${getRecordFieldConstantName(c.name, name)}_MIME_TYPES = {`,
                         field.options.mimeTypes
                             .map(
                                 (mimeType: string) =>

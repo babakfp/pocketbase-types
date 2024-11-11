@@ -1,5 +1,5 @@
 import type { CollectionModel, SchemaField } from "pocketbase"
-import { getCollectionSelectFieldConstantName } from "./getCollectionSelectFieldConstantName.js"
+import { getRecordFieldConstantName } from "./getRecordFieldConstantName.js"
 
 export const getCollectionFieldTsType = (
     collection: CollectionModel,
@@ -46,7 +46,7 @@ export const getCollectionFieldTsType = (
     }
 
     if (field.type === "select") {
-        const type = `keyof typeof ${getCollectionSelectFieldConstantName(collection.name, field.name)}`
+        const type = `keyof typeof ${getRecordFieldConstantName(collection.name, field.name)}`
         return field.options.maxSelect === 1 ? type : `(${type})[]`
     }
 

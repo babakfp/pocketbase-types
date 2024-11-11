@@ -1,6 +1,6 @@
 import type { CollectionModel, SchemaField } from "pocketbase"
 
-export const getCollectionSelectFieldConstantName = (
+export const getRecordFieldConstantName = (
     collectionName: CollectionModel["name"],
     fieldName: SchemaField["name"],
 ) => {
