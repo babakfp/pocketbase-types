@@ -72,7 +72,10 @@ const createCollectionResponse = () => {
 
     const add = (collection: CollectionModel) => {
         const name = toPascalCase(collection.name)
-        const model = collection.type === "auth" ? "AuthModel" : "RecordModel"
+        const model =
+            collection.type === "auth" ? "AuthModel"
+            : collection.type === "view" ? "ViewModel"
+            : "RecordModel"
 
         types.push(
             `export type ${name}Response<Texpand = unknown> = Required<${name}Record> & ${model}<Texpand>`,
@@ -133,6 +136,12 @@ export type BaseModel = {
     id: string
     created: string
     updated: string
+}
+
+export type ViewModel = {
+    id: string
+    collectionId: string
+    collectionName: string
 }
 
 export type RecordModel<T = never> = BaseModel & {
