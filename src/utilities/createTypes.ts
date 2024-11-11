@@ -1,6 +1,7 @@
 import type { CollectionModel } from "pocketbase"
 import { toPascalCase } from "../helpers/toPascalCase.js"
 import { getCollectionFieldTsType } from "./getCollectionFieldTsType.js"
+import { getCollectionSelectFieldConstantName } from "./getCollectionSelectFieldConstantName.js"
 import { getRecordFieldConstantName } from "./getRecordFieldConstantName.js"
 
 const createCollectionRecord = () => {
@@ -20,7 +21,7 @@ const createCollectionRecord = () => {
             if (field.type === "select") {
                 constants.push(
                     [
-                        `export const ${getRecordFieldConstantName(c.name, name)}_OPTIONS = {`,
+                        `export const ${getCollectionSelectFieldConstantName(c.name, name)} = {`,
                         field.options.values
                             .map(
                                 (value: string) =>
