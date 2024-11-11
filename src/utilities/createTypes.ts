@@ -78,7 +78,9 @@ const createCollectionResponse = () => {
             : "RecordModel"
 
         types.push(
-            `export type ${name}Response<TExpand = unknown> = Required<${name}Record> & ${model}<TExpand>`,
+            model === "ViewModel" ?
+                `export type ${name}Response = Required<${name}Record> & ${model}`
+            :   `export type ${name}Response<TExpand = unknown> = Required<${name}Record> & ${model}<TExpand>`,
         )
     }
 
@@ -110,7 +112,9 @@ const createPocketbaseType = () => {
         const name = toPascalCase(collection.name)
 
         types.push(
-            `    collection<TExpand = unknown>(idOrName: "${collection.name}"): RecordService<${name}Response<TExpand>>`,
+            collection.type === "view" ?
+                `    collection(idOrName: "${collection.name}"): RecordService<${name}Response>`
+            :   `    collection<TExpand = unknown>(idOrName: "${collection.name}"): RecordService<${name}Response<TExpand>>`,
         )
     }
 
