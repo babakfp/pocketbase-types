@@ -1,9 +1,9 @@
-import { minLength, object, optional, pipe, string } from "valibot"
+import * as v from "valibot"
 
-export const cliOptionsSchema = object({
-    url: optional(pipe(string(), minLength(1))),
-    email: optional(pipe(string(), minLength(1))),
-    password: optional(pipe(string(), minLength(1))),
-    output: pipe(string(), minLength(1)),
-    env: optional(pipe(string(), minLength(1))),
+export const cliOptionsSchema = v.object({
+    url: v.optional(v.pipe(v.string(), v.minLength(1))),
+    email: v.optional(v.pipe(v.string(), v.minLength(1))),
+    password: v.optional(v.pipe(v.string(), v.minLength(1))),
+    output: v.pipe(v.string(), v.minLength(1)),
+    env: v.optional(v.pipe(v.string(), v.minLength(1))),
 })
