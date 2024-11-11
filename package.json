@@ -35,6 +35,7 @@
     },
     "keywords": [
         "pocketbase",
+        "typegen",
         "auto",
         "generate",
         "types",
