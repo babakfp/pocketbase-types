@@ -41,7 +41,7 @@ const createCollectionRecord = () => {
 
         types.push(
             [`export type ${collectionName}Record = {`, ...props, "}"].join(
-                "\n",
+                props.length ? "\n" : "",
             ),
         )
     }
