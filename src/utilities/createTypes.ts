@@ -8,7 +8,7 @@ const createCollectionRecord = () => {
 
     const add = (c: CollectionModel) => {
         const props: string[] = []
-        const selectConstantProperties: string[] = []
+        const constants: string[] = []
 
         c.schema.forEach((field) => {
             const name = field.name
@@ -18,7 +18,7 @@ const createCollectionRecord = () => {
             props.push(`    ${name}${required}: ${type}`)
 
             if (field.type === "select") {
-                selectConstantProperties.push(
+                constants.push(
                     [
                         `export const ${getCollectionSelectFieldConstantName(c.name, name)} = {`,
                         field.options.values
@@ -31,12 +31,27 @@ const createCollectionRecord = () => {
                     ].join("\n"),
                 )
             }
+
+            if (field.type === "file") {
+                constants.push(
+                    [
+                        `export const ${c.name.toUpperCase()}_RECORD_${name.toUpperCase()}_MIME_TYPES = {`,
+                        field.options.mimeTypes
+                            .map(
+                                (mimeType: string) =>
+                                    `    ${JSON.stringify(mimeType)}: "${mimeType}",`,
+                            )
+                            .join("\n"),
+                        "} as const",
+                    ].join("\n"),
+                )
+            }
         })
 
         const collectionName = toPascalCase(c.name)
 
-        if (selectConstantProperties.length) {
-            types.push(selectConstantProperties.join("\n\n"))
+        if (constants.length) {
+            types.push(constants.join("\n\n"))
         }
 
         types.push(
