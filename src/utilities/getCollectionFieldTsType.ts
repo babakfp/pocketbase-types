@@ -34,7 +34,7 @@ export const getCollectionFieldTsType = (
     }
 
     if (field.type === "json") {
-        return ["unknown", "null"].join(" | ")
+        return "unknown"
     }
 
     if (field.type === "file") {
