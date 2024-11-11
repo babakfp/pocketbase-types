@@ -5,13 +5,23 @@ export const getCollectionFieldTsType = (
     collection: CollectionModel,
     field: SchemaField,
 ) => {
-    if (
-        field.type === "date" ||
-        field.type === "text" ||
-        field.type === "email" ||
-        field.type === "url" ||
-        field.type === "editor"
-    ) {
+    if (field.type === "date") {
+        return "string"
+    }
+
+    if (field.type === "text") {
+        return "string"
+    }
+
+    if (field.type === "email") {
+        return "string"
+    }
+
+    if (field.type === "url") {
+        return "string"
+    }
+
+    if (field.type === "editor") {
         return "string"
     }
 
@@ -27,7 +37,11 @@ export const getCollectionFieldTsType = (
         return ["unknown", "null"].join(" | ")
     }
 
-    if (field.type === "file" || field.type === "relation") {
+    if (field.type === "file") {
+        return field.options.maxSelect > 1 ? "string[]" : "string"
+    }
+
+    if (field.type === "relation") {
         return field.options.maxSelect > 1 ? "string[]" : "string"
     }
 
