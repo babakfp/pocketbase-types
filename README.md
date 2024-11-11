@@ -10,6 +10,8 @@ pnpm add -D pocketbase-types
 
 ## How to use
 
+### CLI
+
 ```bash
 pnpm pocketbase-types -o pocketbase-types.ts
 ```
@@ -21,7 +23,7 @@ pnpm pocketbase-types -o pocketbase-types.ts
 -   `--env` - Specify the location of the environment file.
 -   `-h`, `--help` - Display help for command.
 
-### Environment Variables
+#### Environment Variables
 
 Environment variables by default are loaded from the `.env` file in the root of your project. You can also specify the location of the environment file using the `--env` flag.
 
