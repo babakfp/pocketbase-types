@@ -4,6 +4,24 @@ import { getCollectionFieldTsType } from "./getCollectionFieldTsType.js"
 import { getCollectionSelectFieldConstantName } from "./getCollectionSelectFieldConstantName.js"
 import { getRecordFieldConstantName } from "./getRecordFieldConstantName.js"
 
+const createCollectionsConstant = () => {
+    const constants: string[] = []
+
+    const add = (c: CollectionModel) => {
+        constants.push(`    ${JSON.stringify(c.name)}: "${c.name}",`)
+    }
+
+    const get = () => {
+        return [
+            "export const COLLECTIONS = {",
+            ...constants,
+            "} as const",
+        ].join("\n")
+    }
+
+    return { add, get }
+}
+
 const createCollectionRecord = () => {
     const types: string[] = []
 
@@ -161,12 +179,12 @@ export type BaseModel = {
 export type ViewModel = {
     id: string
     collectionId: string
-    collectionName: string
+    collectionName: keyof typeof COLLECTIONS
 }
 
 export type RecordModel<T = never> = BaseModel & {
     collectionId: string
-    collectionName: string
+    collectionName: keyof typeof COLLECTIONS
     expand?: T
 }
 
@@ -178,6 +196,7 @@ export type AuthModel<T = never> = RecordModel<T> & {
 }`,
     ]
 
+    const collectionsConstant = createCollectionsConstant()
     const collectionRecord = createCollectionRecord()
     const collectionRecords = createCollectionRecords()
     const collectionResponse = createCollectionResponse()
@@ -185,6 +204,7 @@ export type AuthModel<T = never> = RecordModel<T> & {
     const pocketbaseType = createPocketbaseType()
 
     collections.forEach((collection) => {
+        collectionsConstant.add(collection)
         collectionRecord.add(collection)
         collectionRecords.add(collection)
         collectionResponse.add(collection)
@@ -192,6 +212,7 @@ export type AuthModel<T = never> = RecordModel<T> & {
         pocketbaseType.add(collection)
     })
 
+    allTypes.push(collectionsConstant.get())
     allTypes.push(collectionRecord.get())
     allTypes.push(collectionRecords.get())
     allTypes.push(collectionResponse.get())
