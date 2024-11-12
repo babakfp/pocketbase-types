@@ -1,6 +1,6 @@
 # PocketBase Types
 
-A CLI tool to generate TypeScript types for PocketBase.
+A CLI tool to generate TypeScript types for [PocketBase](https://pocketbase.io) collections.
 
 ## Install
 
@@ -10,20 +10,32 @@ pnpm add -D pocketbase-types
 
 ## How to use
 
-### CLI
-
 ```bash
 pnpm pocketbase-types -o pocketbase-types.ts
 ```
 
--   `-u`, `--url [url]` - PocketBase URL. Default: `PB_URL || PUBLIC_PB_URL || POCKETBASE_URL || PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090"`.
--   `-e`, `--email [email]` - PocketBase admin email. Default: `PB_EMAIL || POCKETBASE_EMAIL`.
--   `-p`, `--password [password]` - PocketBase admin password. Default: `PB_PASSWORD || POCKETBASE_PASSWORD`.
--   `-o`, `--output <output>` - Specify the path to save the types.
--   `--env` - Specify the location of the environment file.
--   `-h`, `--help` - Display help for command.
+> [!IMPORTANT]
+> Make sure to specify the admin email and password using the CLI flags or env file.
 
-#### Environment Variables
+## CLI flags
+
+### `-u`, `--url [url]`
+
+PocketBase URL. Default: `PB_URL || PUBLIC_PB_URL || POCKETBASE_URL || PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090"`.
+
+### `-e`, `--email [email]`
+
+PocketBase admin email. Default: `PB_EMAIL || POCKETBASE_EMAIL`.
+
+### `-p`, `--password [password]`
+
+PocketBase admin password. Default: `PB_PASSWORD || POCKETBASE_PASSWORD`.
+
+### `-o`, `--output <output>`
+
+Specify the path to save the types.
+
+### `--env`
 
 Environment variables by default are loaded from the `.env` file in the root of your project. You can also specify the location of the environment file using the `--env` flag.
 
@@ -31,7 +43,11 @@ Environment variables by default are loaded from the `.env` file in the root of 
 pnpm pocketbase-types -o pocketbase-types.ts --env .env.local
 ```
 
-### Function
+### `-h`, `--help`
+
+Display help for command.
+
+## Without CLI
 
 ```ts
 import { writeTypesToFile } from "pocketbase-types"

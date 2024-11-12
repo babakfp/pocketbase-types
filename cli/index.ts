@@ -6,7 +6,9 @@ import { writeTypesToFile } from "../src/utilities/writeTypesToFile.js"
 
 program
     .name("pocketbase-types")
-    .description("A CLI tool to generate TypeScript types for PocketBase.")
+    .description(
+        "A CLI tool to generate TypeScript types for PocketBase collections.",
+    )
 
     .option("-u, --url [url]", "PocketBase URL.")
     .option("-e, --email [email]", "PocketBase admin email.")
