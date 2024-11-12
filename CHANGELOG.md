@@ -1,3 +1,7 @@
+## 2.1.0
+
+-   New: Added `COLLECTIONS` constant.
+
 ## 2.0.0
 
 -   Breaking: Added the `_OPTIONS` suffix to the variable name of constans of the `select` fields.

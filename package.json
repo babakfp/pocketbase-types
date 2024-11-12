@@ -1,7 +1,7 @@
 {
     "name": "pocketbase-types",
     "description": "A CLI tool to generate TypeScript types for PocketBase.",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "license": "MIT",
     "main": "./dist/src/index.js",
     "bin": "./dist/cli/index.js",
