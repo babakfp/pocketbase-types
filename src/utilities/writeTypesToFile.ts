@@ -1,5 +1,5 @@
-import { writeFile } from "node:fs/promises"
-import { join } from "node:path"
+import fs from "node:fs/promises"
+import path from "node:path"
 import * as v from "valibot"
 import { createTypes } from "./createTypes.js"
 import { getCollections } from "./getCollections.js"
@@ -27,5 +27,8 @@ export const writeTypesToFile = async (options: {
         result.output.password,
     )
     const typesFileContent = createTypes(collections)
-    await writeFile(join(process.cwd(), result.output.output), typesFileContent)
+    await fs.writeFile(
+        path.join(process.cwd(), result.output.output),
+        typesFileContent,
+    )
 }
