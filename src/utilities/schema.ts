@@ -5,7 +5,7 @@ export const Schema = v.object({
     url: v.pipe(v.string(), v.url()),
     email: v.pipe(v.string(), v.email()),
     password: v.pipe(v.string(), v.minLength(1)),
-    output: v.pipe(v.string(), v.minLength(1)),
+    output: v.pipe(v.string(), v.minLength(1), v.endsWith(".ts")),
 })
 
 export type Schema = v.InferInput<typeof Schema>
