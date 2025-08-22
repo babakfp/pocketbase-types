@@ -62,11 +62,7 @@ if (!password) {
     console.log("pocketbase-types: Missing password.")
 }
 
-if (!output) {
-    console.log("pocketbase-types: Missing output path.")
-}
-
-if (!url || !email || !password || !output) {
+if (!email || !password) {
     process.exit()
 }
 
