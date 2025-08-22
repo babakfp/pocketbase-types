@@ -1,7 +1,7 @@
 import { program } from "commander"
 import dotenv from "dotenv"
 import * as v from "valibot"
-import { cliOptionsSchema } from "../src/utilities/cliOptionsSchema.js"
+import { CLISchema } from "../src/utilities/schema.js"
 import { writeTypesToFile } from "../src/utilities/writeTypesToFile.js"
 
 program
@@ -20,10 +20,14 @@ program
 
     .parse()
 
-let { url, email, password, output, env } = v.parse(
-    cliOptionsSchema,
-    program.opts(),
-)
+const result = v.safeParse(CLISchema, program.opts())
+
+if (!result.success) {
+    console.log(v.summarize(result.issues))
+    process.exit()
+}
+
+let { url, email, password, output, env } = result.output
 
 dotenv.config({ path: env })
 
@@ -66,4 +70,4 @@ if (!url || !email || !password || !output) {
     process.exit()
 }
 
-await writeTypesToFile(url, email, password, output)
+await writeTypesToFile({ url, email, password, output })

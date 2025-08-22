@@ -33,7 +33,7 @@ PocketBase admin password. Default: `PB_PASSWORD || POCKETBASE_PASSWORD`.
 
 ### `-o`, `--output <output>`
 
-Specify the path to save the types.
+Specify the path to save the types. Default: `"<PROCESS_CWD>/pocketbase-types.ts"`.
 
 ### `--env`
 
@@ -52,12 +52,12 @@ Display help for command.
 ```ts
 import { writeTypesToFile } from "pocketbase-types"
 
-await writeTypesToFile(
-    "http://127.0.0.1:8090",
-    "ADMIN EMAIL",
-    "ADMIN PASSWORD",
-    "pocketbase-types.ts",
-)
+await writeTypesToFile({
+    url: "http://127.0.0.1:8090",
+    email: "ADMIN EMAIL",
+    password: "ADMIN PASSWORD",
+    output: "pocketbase-types.ts",
+})
 ```
 
 ## Auto Generate Types
@@ -101,19 +101,13 @@ Do the same for `pb_hooks/sendTypesUpdateRequest.cjs`.
  */
 const sendTypesUpdateRequest = (url) => {
     try {
-        $http.send({
-            url: url,
-            timeout: 30,
-            method: "POST",
-        })
+        $http.send({ url: url, timeout: 30, method: "POST" })
     } catch (error) {
         console.log(error)
     }
 }
 
-module.exports = {
-    sendTypesUpdateRequest,
-}
+module.exports = { sendTypesUpdateRequest }
 ```
 
 This is going to send a HTTP request to your app, letting you know that types neeed to be updated.
@@ -135,12 +129,12 @@ import { writeTypesToFile } from "pocketbase-types"
 export const POST = async () => {
     const OUTPUT_PATH = "/src/lib/pocketbase-types.ts"
 
-    await writeTypesToFile(
-        PUBLIC_POCKETBASE_URL,
-        POCKETBASE_ADMIN_EMAIL,
-        POCKETBASE_ADMIN_PASSWORD,
-        OUTPUT_PATH,
-    )
+    await writeTypesToFile({
+        url: PUBLIC_POCKETBASE_URL,
+        email: POCKETBASE_ADMIN_EMAIL,
+        password: POCKETBASE_ADMIN_PASSWORD,
+        output: OUTPUT_PATH,
+    })
 
     return ""
 }
