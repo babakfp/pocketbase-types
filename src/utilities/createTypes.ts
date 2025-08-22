@@ -13,9 +13,9 @@ const createCollectionsConstant = () => {
 
     const get = () => {
         return [
-            "export const COLLECTIONS = {",
+            "export const COLLECTIONS = Object.freeze({",
             ...constants,
-            "} as const",
+            "})",
         ].join("\n")
     }
 
@@ -39,14 +39,14 @@ const createCollectionRecord = () => {
             if (field.type === "select") {
                 constants.push(
                     [
-                        `export const ${getCollectionSelectFieldConstantName(c.name, name)} = {`,
+                        `export const ${getCollectionSelectFieldConstantName(c.name, name)} = Object.freeze({`,
                         field.values
                             .map(
                                 (value: string) =>
                                     `    ${JSON.stringify(value)}: "${value}",`,
                             )
                             .join("\n"),
-                        "} as const",
+                        "})",
                     ].join("\n"),
                 )
             }
@@ -54,14 +54,14 @@ const createCollectionRecord = () => {
             if (field.type === "file") {
                 constants.push(
                     [
-                        `export const ${getRecordFieldConstantName(c.name, name)}_MIME_TYPES = {`,
+                        `export const ${getRecordFieldConstantName(c.name, name)}_MIME_TYPES = Object.freeze({`,
                         field.mimeTypes
                             .map(
                                 (mimeType: string) =>
                                     `    ${JSON.stringify(mimeType)}: "${mimeType}",`,
                             )
                             .join("\n"),
-                        "} as const",
+                        "})",
                     ].join("\n"),
                 )
             }
