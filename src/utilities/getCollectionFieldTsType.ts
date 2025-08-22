@@ -1,9 +1,9 @@
-import type { CollectionModel, SchemaField } from "pocketbase"
+import type { CollectionField, CollectionModel } from "pocketbase"
 import { getCollectionSelectFieldConstantName } from "./getCollectionSelectFieldConstantName.js"
 
 export const getCollectionFieldTsType = (
     collection: CollectionModel,
-    field: SchemaField,
+    field: CollectionField,
 ) => {
     if (field.type === "date") {
         return "string"
@@ -38,16 +38,16 @@ export const getCollectionFieldTsType = (
     }
 
     if (field.type === "file") {
-        return field.options.maxSelect === 1 ? "string" : "string[]"
+        return field.maxSelect === 1 ? "string" : "string[]"
     }
 
     if (field.type === "relation") {
-        return field.options.maxSelect === 1 ? "string" : "string[]"
+        return field.maxSelect === 1 ? "string" : "string[]"
     }
 
     if (field.type === "select") {
         const type = `keyof typeof ${getCollectionSelectFieldConstantName(collection.name, field.name)}`
-        return field.options.maxSelect === 1 ? type : `(${type})[]`
+        return field.maxSelect === 1 ? type : `(${type})[]`
     }
 
     return "unknown"

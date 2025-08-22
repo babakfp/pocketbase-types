@@ -14,7 +14,7 @@ export const getCollections = async (
 ) => {
     const pb = new PocketBase(url)
 
-    await pb.admins.authWithPassword(email, password)
+    await pb.collection("_superusers").authWithPassword(email, password)
 
     const collections = await pb.collections.getFullList()
 

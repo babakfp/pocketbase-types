@@ -29,7 +29,7 @@ const createCollectionRecord = () => {
         const props: string[] = []
         const constants: string[] = []
 
-        c.schema.forEach((field) => {
+        c.fields.forEach((field) => {
             const name = field.name
             const required = field.required ? "" : "?"
             const type = getCollectionFieldTsType(c, field)
@@ -40,7 +40,7 @@ const createCollectionRecord = () => {
                 constants.push(
                     [
                         `export const ${getCollectionSelectFieldConstantName(c.name, name)} = {`,
-                        field.options.values
+                        field.values
                             .map(
                                 (value: string) =>
                                     `    ${JSON.stringify(value)}: "${value}",`,
@@ -55,7 +55,7 @@ const createCollectionRecord = () => {
                 constants.push(
                     [
                         `export const ${getRecordFieldConstantName(c.name, name)}_MIME_TYPES = {`,
-                        field.options.mimeTypes
+                        field.mimeTypes
                             .map(
                                 (mimeType: string) =>
                                     `    ${JSON.stringify(mimeType)}: "${mimeType}",`,
