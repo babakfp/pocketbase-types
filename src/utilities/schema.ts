@@ -8,6 +8,8 @@ export const Schema = v.object({
     output: v.pipe(v.string(), v.minLength(1)),
 })
 
+export type Schema = v.InferInput<typeof Schema>
+
 export const CLISchema = v.object({
     url: v.optional(Schema.entries.url),
     email: v.optional(Schema.entries.email),

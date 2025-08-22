@@ -8,13 +8,13 @@ import { Schema } from "./schema.js"
 /** Fetches all collections from PocketBase, converts them to TypeScript types, and saves them to a file. */
 export const writeTypesToFile = async (options: {
     /** PocketBase URL. */
-    url: string
+    url: Schema["url"]
     /** PocketBase admin email. */
-    email: string
+    email: Schema["email"]
     /** PocketBase admin password. */
-    password: string
+    password: Schema["password"]
     /** Specify the file path to save the types. The path is relative to the current working directory. */
-    output: string
+    output: Schema["output"]
 }) => {
     const result = v.safeParse(Schema, options)
     if (!result.success) {
